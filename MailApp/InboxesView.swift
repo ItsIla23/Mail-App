@@ -12,55 +12,37 @@ import SwiftData
 
 struct InboxesView: View {
     
-    @State  var showModalAdd: Bool = false
     
-    @State var searchQuery: String
+    var viewTitle: String
+    
+    @State var showModalAdd: Bool = false
+    
+    @State var searchQuery: String = " "
+    
+    var emails: [Mail] = [
+        Mail(title: "Amazon Service", subtitle: "Your Recent Purchase Confirmation", text: "Dear [Name], thank you for your recent purchase on Amazon! We're delighted..."),
+        Mail(title: "Facebook", subtitle: "New Friend Request on Facebook", text: "You have a new friend request on Facebook! Connect with friends, share..."),
+        Mail(title: "Apple ID ", subtitle: "Your Recent Apple ID Sign-In", text: "We wanted to inform you of a recent sign-in to your Apple ID from a new dev..."),
+        Mail(title: "Instagram Support", subtitle: "Important Security Update on Instagram", text: "Hello [Your Instagram Username], your account security is our top priority. We..."),
+        Mail(title: "LinkedIn Connections", subtitle: "LinkedIn Connection Invitation", text: "Hi [Your Name], [Sender Name] has sent you a connection invitation on LinkedIn..."),
+        Mail(title: "Twitter Notifications", subtitle: "You've Got New Followers on Twitter", text: "Hello [Your Twitter Handle], congratulations! You've gained new foll..."),
+        Mail(title: "Microsoft Account Team", subtitle: "Microsoft Account Update", text: "Dear [Your Name], we wanted to inform you of an update to your Microsoft...")
+    ]
     
     
-    
+    @Query
+    var mail2: [Mail]
     
     var body: some View {
         
         List {
-            VStack (alignment: .leading){
-                Text("Aliexpress").bold()
-                Text("I best hajk")
-                Text("ghjk").foregroundColor(.gray)
+            ForEach(emails) { email in
+                MailListItemView(emailModel: email)
+                
             }
-            VStack (alignment: .leading){
-                Text("Aliexpress").bold()
-                Text("I best hajk")
-                Text("ghjk").foregroundColor(.gray)
-            }
-            VStack (alignment: .leading){
-                Text("Aliexpress").bold()
-                Text("I best hajk")
-                Text("ghjk").foregroundColor(.gray)
-            }
-            VStack (alignment: .leading){
-                Text("Aliexpress").bold()
-                Text("I best hajk")
-                Text("ghjk").foregroundColor(.gray)
-            }
-            VStack (alignment: .leading){
-                Text("Aliexpress").bold()
-                Text("I best hajk")
-                Text("ghjk").foregroundColor(.gray)
-            }
-            VStack (alignment: .leading){
-                Text("Aliexpress").bold()
-                Text("I best hajk")
-                Text("ghjk").foregroundColor(.gray)
-            }
-            VStack (alignment: .leading){
-                Text("Aliexpress").bold()
-                Text("I best hajk")
-                Text("ghjk").foregroundColor(.gray)
-            }
-            
         }
         
-        .navigationTitle("All Inboxes")
+        .navigationTitle(viewTitle)
         .searchable(text: $searchQuery)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -68,7 +50,9 @@ struct InboxesView: View {
             }
             ToolbarItem(placement: .bottomBar) {
                 Button {
-                    //inserisci come filtrare le mail
+                    for mail in mail2 {
+                        print(mail.id, mail.text)
+                    }
                 } label: {
                     Image(systemName: "line.3.horizontal.decrease.circle")
                     
@@ -79,6 +63,7 @@ struct InboxesView: View {
                     self.showModalAdd = true
                 }, label: {
                     Image(systemName: "square.and.pencil")
+                    
                 }).sheet(isPresented: self.$showModalAdd){
                     NewMessageModal();
                 }
@@ -97,5 +82,5 @@ struct InboxesView: View {
 }
 
 #Preview {
-    InboxesView(searchQuery: "")
+    InboxesView(viewTitle: "")
 }

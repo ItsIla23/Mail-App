@@ -18,6 +18,8 @@ struct NewMessageModal: View {
     
     @Environment(\.presentationMode) var presentationMode
     
+    @Environment(\.modelContext) var modelContext
+    
     var body: some View {
        
         VStack {
@@ -26,9 +28,7 @@ struct NewMessageModal: View {
                     
                 }) {
                     Text("Cancel")
-                        .offset(x: -160)
-                        
-            }
+                } .offset(x:-160)
             Spacer()
                 .frame(height: 20)
             
@@ -38,7 +38,8 @@ struct NewMessageModal: View {
                     Spacer()
                     .frame(width: 115)
                 Button(action: {
-                    //salva il messaggio in sent quando cliccato
+                    modelContext.insert(Mail(title: toText, subtitle: subject, text: mailText))
+                    try? modelContext.save()
                 }, label: {
                     Image(systemName: "arrow.up.circle.fill")
                         .resizable()
@@ -75,6 +76,7 @@ struct NewMessageModal: View {
             
             TextField(" ", text: $mailText)
                 .padding(.horizontal, 8)
+            
             
         }
         .offset(x: 0, y: -220)

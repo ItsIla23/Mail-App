@@ -33,24 +33,28 @@ struct NewMessageModal: View {
                 .frame(height: 20)
             
             HStack {
-                Text("New Message").bold().font(.largeTitle)
+                Text("New Message").accessibilitySortPriority(1)
+                    .bold().font(.largeTitle)
                 
                     Spacer()
                     .frame(width: 115)
                 Button(action: {
                     modelContext.insert(Mail(title: toText, subtitle: subject, text: mailText))
                     try? modelContext.save()
+                    self.presentationMode.wrappedValue.dismiss()
                 }, label: {
                     Image(systemName: "arrow.up.circle.fill")
                         .resizable()
                         .frame(width: 35, height: 35)
                         .foregroundColor(.gray)
+                        .accessibilityLabel("Send mail")
                 })
             }
             
             HStack {
                 Text("To:").foregroundColor(.gray)
-                TextField(" ", text: $toText)
+                TextField("", text: $toText)
+                    .accessibilityLabel("To")
             } .padding(.horizontal, 10)
             
             Divider()
@@ -58,14 +62,16 @@ struct NewMessageModal: View {
                 .frame(height: 5)
             HStack {
                 Text("Cc/Bcc, From:").foregroundColor(.gray)
-                TextField(" ", text: $cc)
+                TextField("", text: $cc)
+                    .accessibilityLabel("From")
             } .padding(.horizontal, 10)
             Divider()
                 .frame(height: 5)
                 .padding(.horizontal, 20)
             HStack {
                 Text("Subject:").foregroundColor(.gray)
-                TextField(" ", text: $subject)
+                TextField("", text: $subject)
+                    .accessibilityLabel("Subject")
                 
                 Image(systemName: "bell").foregroundColor(.blue)
             } .padding(.horizontal, 10)
@@ -74,7 +80,8 @@ struct NewMessageModal: View {
                 .frame(height: 5)
                 .padding(.horizontal, 20)
             
-            TextField(" ", text: $mailText)
+            TextField("", text: $mailText)
+                .accessibilityLabel("Message body")
                 .padding(.horizontal, 8)
             
             

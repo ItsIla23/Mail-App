@@ -19,7 +19,7 @@ struct MailboxesView: View {
                     NavigationLink(destination: InboxesView(viewTitle: "All Inboxes", searchQuery: "")) {
                         HStack {
                             Image(systemName: "tray.2").foregroundColor(.blue)
-                            Text("All Inboxes")
+                            Text("All Inboxes").accessibilitySortPriority(2)
                         }
                     }
                     NavigationLink(destination: InboxesView(viewTitle: "iCloud", searchQuery: "")) {
@@ -34,13 +34,16 @@ struct MailboxesView: View {
                             Text("Gmail")
                         }
                     }
-                    HStack {
-                        Image(systemName: "star").foregroundColor(.yellow)
-                        Text("VIP")
+                    NavigationLink(destination: InboxesView(viewTitle: "VIP", searchQuery: "")) {
+                        HStack {
+                            Image(systemName: "star")
+                                .foregroundColor(.yellow)
+                            Text("VIP")
+                        }
                     }
-                } 
+                }
 
-                .navigationBarTitle("Mailboxes")
+                .navigationBarTitle("Mailboxes").accessibilitySortPriority(1)
                 
                 
                 Section (header: Text("iCloud").bold().foregroundColor(.black).font(.title2).textCase(nil)) {
@@ -50,17 +53,23 @@ struct MailboxesView: View {
                             Text("Inbox")
                         }
                     }
-                    HStack {
-                        Image(systemName: "doc").foregroundColor(.blue)
-                        Text("Drafts")
+                    NavigationLink(destination: InboxesView(viewTitle: "Drafts", searchQuery: "")) {
+                        HStack {
+                            Image(systemName: "doc").foregroundColor(.blue)
+                            Text("Drafts")
+                        }
                     }
-                    HStack {
-                        Image(systemName: "paperplane").foregroundColor(.blue)
-                        Text("Sent")
+                    NavigationLink(destination: InboxesView(viewTitle: "Sent", searchQuery: "")) {
+                        HStack {
+                            Image(systemName: "paperplane").foregroundColor(.blue)
+                            Text("Sent")
+                        }
                     }
-                    HStack {
-                        Image(systemName: "xmark.bin").foregroundColor(.blue)
-                        Text("Junk")
+                    NavigationLink(destination: InboxesView(viewTitle: "Junk", searchQuery: "")) {
+                        HStack {
+                            Image(systemName: "xmark.bin").foregroundColor(.blue)
+                            Text("Junk")
+                        }
                     }
                 }
                 
@@ -71,17 +80,23 @@ struct MailboxesView: View {
                             Text("Inbox")
                         }
                     }
-                    HStack {
-                        Image(systemName: "doc").foregroundColor(.blue)
-                        Text("Drafts")
+                    NavigationLink(destination: InboxesView(viewTitle: "Drafts", searchQuery: "")) {
+                        HStack {
+                            Image(systemName: "doc").foregroundColor(.blue)
+                            Text("Drafts")
+                        }
                     }
-                    HStack {
-                        Image(systemName: "paperplane").foregroundColor(.blue)
-                        Text("Sent")
+                    NavigationLink(destination: InboxesView(viewTitle: "Sent", searchQuery: "")) {
+                        HStack {
+                            Image(systemName: "paperplane").foregroundColor(.blue)
+                            Text("Sent")
+                        }
                     }
-                    HStack {
-                        Image(systemName: "xmark.bin").foregroundColor(.blue)
-                        Text("Junk")
+                    NavigationLink(destination: InboxesView(viewTitle: "Junk", searchQuery: "")) {
+                        HStack {
+                            Image(systemName: "xmark.bin").foregroundColor(.blue)
+                            Text("Junk")
+                        }
                     }
                 }
             }  .toolbar {

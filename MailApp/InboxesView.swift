@@ -15,6 +15,8 @@ struct InboxesView: View {
     
     var viewTitle: String
     
+    @Environment(\.modelContext) var modelContext
+    
     @State var showModalAdd: Bool = false
     
     @State var searchQuery: String = " "
@@ -36,9 +38,15 @@ struct InboxesView: View {
     var body: some View {
         
         List {
-            ForEach(emails) { email in
-                MailListItemView(emailModel: email)
-                
+            if viewTitle == "Sent" {
+                ForEach (mail2) { email in
+                    MailListItemView(emailModel: email)
+                }
+            } else {
+                ForEach(emails) { email in
+                    MailListItemView(emailModel: email)
+                }
+
             }
         }
         
@@ -46,7 +54,14 @@ struct InboxesView: View {
         .searchable(text: $searchQuery)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                EditButton()
+                Button {
+                    mail2.forEach{ mail in
+                        modelContext.delete(mail)
+                    }
+                    try? modelContext.save()
+                } label: {
+                    Text("Delete")
+                }
             }
             ToolbarItem(placement: .bottomBar) {
                 Button {
@@ -73,7 +88,7 @@ struct InboxesView: View {
         }
         
         
-        
+    
         
         
         
